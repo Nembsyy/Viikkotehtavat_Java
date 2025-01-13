@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+class NumeronArvauspeli {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int oikeaLuku = (int)(Math.random() * 100) + 1;
+        int arvausLkm = 0;
+
+        System.out.println("Arvaa luku väliltä 1 – 100. Sinulla on 7 yritystä!");
+
+        while (arvausLkm < 7) {
+            System.out.print("Anna arvauksesi: ");
+            int arvaus = scanner.nextInt();
+            arvausLkm++;
+
+            if (arvaus == oikeaLuku) {
+                System.out.println("Oikein! Arvasit luvun " + oikeaLuku + "!");
+                return;
+            } else if (arvaus < oikeaLuku) {
+                System.out.println("Luku on suurempi!");
+            } else {
+                System.out.println("Luku on pienempi!");
+            }
+        }
+
+        System.out.println("Et arvannut oikein. Oikea luku oli: " + oikeaLuku);
+        scanner.close();
+    }
+}
