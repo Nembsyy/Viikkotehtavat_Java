@@ -1,0 +1,45 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
+public class Birthday {
+
+    public static void main(String[] args) {
+        String birthdateEnv = System.getenv("BIRTHDATE");
+
+        if (birthdateEnv == null) {
+            System.out.println("The BIRTHDATE environment variable is not set. Please set it in the format YYYY-MM-DD.");
+            return;
+        }
+
+        LocalDate birthdate;
+        try {
+            birthdate = LocalDate.parse(birthdateEnv);
+        } catch (DateTimeParseException e) {
+            System.out.println("The BIRTHDATE environment variable is not in the correct format (YYYY-MM-DD). Please correct it.");
+            return;
+        }
+
+
+        LocalDate today = LocalDate.now();
+
+
+        if (birthdate.getMonth() == today.getMonth() && birthdate.getDayOfMonth() == today.getDayOfMonth()) {
+            System.out.println("Happy Birthday!");
+        }
+
+
+        long daysBetween = ChronoUnit.DAYS.between(birthdate, today);
+
+        if (daysBetween < 0) {
+            System.out.println("Your birthday is in the future! Please check your input.");
+        } else {
+            System.out.println("You are " + daysBetween + " days old.");
+
+
+            if (daysBetween % 1000 == 0) {
+                System.out.println("That's a nice round number.");
+            }
+        }
+    }
+}
