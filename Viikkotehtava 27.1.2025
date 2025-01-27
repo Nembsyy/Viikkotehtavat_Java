@@ -1,0 +1,46 @@
+import java.time.LocalDate;
+import java.time.DayOfWeek;
+import java.util.Arrays;
+
+
+class MacOsEventTracker {
+    public static void main(String[] args) {
+        Category macOsCategory = new Category("apple", "macos");
+
+        // Creating the Event-array and initializing the events
+        Event[] events = {
+            new Event(LocalDate.of(2024, 9, 16), "macOS 15 Sequoia released", macOsCategory),
+            new Event(LocalDate.of(2023, 9, 26), "macOS 14 Sonoma released", macOsCategory),
+            new Event(LocalDate.of(2022, 10, 24), "macOS 13 Ventura released", macOsCategory),
+            new Event(LocalDate.of(2021, 10, 25), "macOS 12 Monterey released", macOsCategory),
+            new Event(LocalDate.of(2020, 11, 12), "macOS 11 Big Sur released", macOsCategory)
+        };
+
+        // Iterate through the array and print the desired format
+        for (Event event : events) {
+            LocalDate date = event.getDate();
+            String description = event.getDescription();
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+
+            // Parsing macOS-version number and name from desc
+            String version = description.substring(6, 8); // "11", "12", jne.
+            String name = description.substring(9, description.indexOf(" released"));
+
+
+            System.out.printf("macOS %s %s was released on a %s%n", version, name, dayOfWeek);
+        }
+
+        // Gathering OS names in the array
+        String[] osNames = new String[events.length];
+        for (int i = 0; i < events.length; i++) {
+            String description = events[i].getDescription();
+            osNames[i] = description.substring(9, description.indexOf(" released"));
+        }
+
+        // Sorting names in alphabetical order
+        Arrays.sort(osNames);
+
+        // Printout as one line
+        System.out.println("In alphabetical order: " + Arrays.toString(osNames));
+    }
+}
